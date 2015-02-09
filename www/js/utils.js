@@ -1,0 +1,39 @@
+angular.module('ionic.utils', [])
+
+.factory('$localstorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key) {
+      return $window.localStorage[key];
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}])
+
+.factory('$uuid', ['$localstorage', function($localstorage) {
+  var factory = {};
+
+  factory.generateUUID = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+  }
+
+  factory.getUUID = function() {
+    if ($localstorage.get('device_uuid') === undefined) {
+      $localstorage.set('device_uuid', factory.generateUUID());
+    }
+
+    return $localstorage.get('device_uuid');
+  }
+
+  return factory;
+}]);
