@@ -1,10 +1,10 @@
 <ion-header-bar class="bar-positive">
   <h1 class="title">Choose Mood</h1>
-  <a href="#/" class="button">Done</a>
+  <a href="#/" class="button" ng-click="selectMood()">Done</a>
 </ion-header-bar>
 
 <ion-content scroll="false">
-  <ion-slide-box>
+  <ion-slide-box on-slide-changed="slideHasChanged($index)">
     <ion-slide>
       <div class="box blue">
         <h1 class="mood-text">CALM</h1>

@@ -24,4 +24,17 @@ angular.module('starter.controllers', [])
       alert('Unable to get location: ' + error.message);
     });
   };
+})
+
+.controller('MoodSliderCtrl', function($scope, $uuid) {
+  $scope.currentIndex = 0;
+
+  $scope.slideHasChanged = function(index) {
+    $scope.currentIndex = index;
+  };
+
+  $scope.selectMood = function() {
+    // var uuid = $uuid.getUUID();
+    // Send UUID, current longitude, current latitude and $scope.currentIndex to server
+  };
 });
