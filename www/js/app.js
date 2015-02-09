@@ -20,7 +20,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
   .state('mood', {
     url: '/mood',
-    templateUrl: 'templates/mood.html'
+    templateUrl: 'templates/mood.html',
+    controller: 'MoodSliderCtrl'
   });
 
   $urlRouterProvider.otherwise('/');

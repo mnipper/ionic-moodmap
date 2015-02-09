@@ -1,11 +1,24 @@
-<ion-slide-box on-slide-changed="slideHasChanged($index)">
-  <ion-slide>
-    <div class="box blue"><h1>BLUE</h1></div>
-  </ion-slide>
-  <ion-slide>
-    <div class="box yellow"><h1>YELLOW</h1></div>
-  </ion-slide>
-  <ion-slide>
-    <div class="box pink"><h1>PINK</h1></div>
-  </ion-slide>
-</ion-slide-box>
+<ion-header-bar class="bar-positive">
+  <h1 class="title">Choose Mood</h1>
+  <a href="#/" class="button" ng-click="selectMood()">Done</a>
+</ion-header-bar>
+
+<ion-content scroll="false">
+  <ion-slide-box on-slide-changed="slideHasChanged($index)">
+    <ion-slide>
+      <div class="box blue">
+        <h1 class="mood-text">CALM</h1>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="box turquoise">
+        <h1 class="mood-text">ANXIOUS</h1>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="box pink">
+        <h1 class="mood-text">HAPPY</h1>
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+</ion-content>
