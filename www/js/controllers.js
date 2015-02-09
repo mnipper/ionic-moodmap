@@ -28,6 +28,20 @@ angular.module('starter.controllers', [])
 
 .controller('MoodSliderCtrl', function($scope, $uuid) {
   $scope.currentIndex = 0;
+  $scope.moods = [
+    {
+      color: 'blue', 
+      label: 'CALM'
+    },
+    {
+      color: 'turquoise',
+      label: 'ANXIOUS'
+    },
+    {
+      color: 'pink',
+      label: 'HAPPY'
+    }
+  ];
 
   $scope.slideHasChanged = function(index) {
     $scope.currentIndex = index;
