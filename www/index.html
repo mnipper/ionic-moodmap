@@ -30,14 +30,11 @@
   <body ng-app="starter" ng-controller="MapCtrl">
     <ion-header-bar class="bar-positive">
       <h1 class="title">Mood Map</h1>
+      <button class="button">Add Mood</button>
     </ion-header-bar>
 
     <ion-content scroll="false">
       <map on-create="mapCreated(map)"></map>
     </ion-content>
-
-    <ion-footer-bar class="bar-positive">
-      <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
-    </ion-footer-bar>
   </body>
 </html>
