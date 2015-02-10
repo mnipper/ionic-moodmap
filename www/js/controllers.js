@@ -26,33 +26,24 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', 'MoodItem', function($scope, $uuid, MoodItem) {  
+.controller('MoodSliderCtrl', ['$scope', '$uuid', 'MoodItem', 'Mood', function($scope, $uuid, MoodItem, Mood) {  
   $scope.currentIndex = 0;
-  $scope.moods = [
-    {
-      color: 'blue', 
-      label: 'CALM'
-    },
-    {
-      color: 'turquoise',
-      label: 'ANXIOUS'
-    },
-    {
-      color: 'pink',
-      label: 'HAPPY'
-    }
-  ];
   $scope.moodItem = {};
-
+  
+  Mood.getAll().success(function(data) {
+	  $scope.moods = data.results;
+  });
+  
   $scope.slideHasChanged = function(index) {
     $scope.currentIndex = index;
   };
 
   $scope.selectMood = function() {
+	  var selectedMood = $scope.moods[$scope.currentIndex];
     //TODO Get GeoPoint latitude & longitude from map
     MoodItem.create({ 
 			uuid: $uuid.getUUID(), 
-			mood: $scope.moods[$scope.currentIndex].label, 
+			mood: selectedMood.objectId, 
 			location: { __type: 'GeoPoint', latitude: 0, longitude: 0 }
 		});
   };
