@@ -4,7 +4,7 @@
 </ion-header-bar>
 
 <ion-content scroll="false">
-  <ion-slide-box on-slide-changed="slideHasChanged($index)">
+  <ion-slide-box delegate-handle="mood-display" on-slide-changed="slideHasChanged($index)">
     <ion-slide ng-repeat="mood in moods">
       <div class="box" ng-class="mood.color">
         <h1 class="mood-text">{{ mood.label }}</h1>

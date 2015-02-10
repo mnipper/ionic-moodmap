@@ -26,12 +26,13 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', 'MoodItem', 'Mood', function($scope, $uuid, MoodItem, Mood) {  
+.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', 'Mood', function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, Mood) {  
   $scope.currentIndex = 0;
   $scope.moodItem = {};
   
   Mood.getAll().success(function(data) {
 	  $scope.moods = data.results;
+	  $ionicSlideBoxDelegate.$getByHandle('mood-display').update();
   });
   
   $scope.slideHasChanged = function(index) {
