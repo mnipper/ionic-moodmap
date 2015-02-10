@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'ionic.utils', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'starter.services', 'ionic.utils'])
 
 .run(function($ionicPlatform, $uuid) {
   $ionicPlatform.ready(function() {
@@ -8,9 +8,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
     $uuid.getUUID();
   });
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
+}).config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('index', {
     url: '/',
@@ -20,8 +18,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
   .state('mood', {
     url: '/mood',
-    templateUrl: 'templates/mood.html',
-    controller: 'MoodSliderCtrl'
+    templateUrl: 'templates/mood.html'
   });
 
   $urlRouterProvider.otherwise('/');

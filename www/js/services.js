@@ -1,4 +1,4 @@
-angular.module('starter.services',[]).factory('MoodItem',['$http','PARSE_CREDENTIALS',function($http,PARSE_CREDENTIALS) {
+angular.module('starter.services', []).factory('MoodItem', ['$http', 'PARSE_CREDENTIALS', function($http, PARSE_CREDENTIALS) {
 	return {
 		getAll:function() {
             return $http.get('https://api.parse.com/1/classes/MoodItem',{
@@ -18,7 +18,7 @@ angular.module('starter.services',[]).factory('MoodItem',['$http','PARSE_CREDENT
             });
         }
 	}	
-])}.value('PARSE_CREDENTIALS',{
+}]).value('PARSE_CREDENTIALS',{
     APP_ID: '4rrfwKEXMVFOGdbyNDVbzfcgh8GJkIaowFqHwwgT',
     REST_API_KEY:'IAH8wQeusMStVE7L3SeAMGoCI9RId1HNoDBSNIib'
 });

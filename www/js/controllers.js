@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.selectMood = function() {
-    // var uuid = $uuid.getUUID();
+    //var uuid = $uuid.getUUID();    
     // Send UUID, current longitude, current latitude and $scope.currentIndex to server
   };
 });
