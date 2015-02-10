@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MoodSliderCtrl', function($scope, $uuid) {
+.controller('MoodSliderCtrl', ['$scope', '$uuid', 'MoodItem', function($scope, $uuid, MoodItem) {  
   $scope.currentIndex = 0;
   $scope.moods = [
     {
@@ -42,13 +42,19 @@ angular.module('starter.controllers', [])
       label: 'HAPPY'
     }
   ];
+  $scope.moodItem = {};
 
   $scope.slideHasChanged = function(index) {
     $scope.currentIndex = index;
   };
 
   $scope.selectMood = function() {
-    //var uuid = $uuid.getUUID();    
-    // Send UUID, current longitude, current latitude and $scope.currentIndex to server
+    //TODO Get GeoPoint latitude & longitude from map
+    MoodItem.create({ 
+			uuid: $uuid.getUUID(), 
+			mood: $scope.moods[$scope.currentIndex].label, 
+			location: { __type: 'GeoPoint', latitude: 0, longitude: 0 }
+		});
   };
-});
+  
+}]);
