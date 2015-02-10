@@ -1,52 +1,65 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', function($scope, $ionicLoading) {
-  $scope.mapCreated = function(map) {
-    $scope.map = map;
-  };
+.controller('MapCtrl', function($scope, $ionicLoading, locationService) {
+	$scope.myLocation;
+	$scope.mapCreated = function(map) {
+		$scope.map = map;
+		google.maps.event.addDomListener(window, 'load', $scope.centerOnMe());
+	};
 
-  $scope.centerOnMe = function () {
-    console.log("Centering");
-    if (!$scope.map) {
-      return;
-    }
+	$scope.centerOnMe = function () {
+		if (!$scope.map) {
+			return;
+		}
 
-    $scope.loading = $ionicLoading.show({
-      content: 'Getting current location...',
-      showBackdrop: false
-    });
+		$scope.loading = $ionicLoading.show({
+			showBackdrop: false,
+			duration: 10000
+		});
 
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      console.log('Got pos', pos);
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-      $scope.loading.hide();
-    }, function (error) {
-      alert('Unable to get location: ' + error.message);
-    });
-  };
+		navigator.geolocation.getCurrentPosition(function (pos) {
+			$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			$scope.myLocation = new google.maps.Marker({
+				position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+				map: $scope.map,
+				title: "My Current Location"
+			});  
+			locationService.addLocation($scope.myLocation.position);
+			$ionicLoading.hide();
+		}, function (error) {
+			alert('Unable to get location: ' + error.message);
+		});
+	};
 })
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', 'Mood', function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, Mood) {  
-  $scope.currentIndex = 0;
-  $scope.moodItem = {};
-  
-  Mood.getAll().success(function(data) {
-	  $scope.moods = data.results;
-	  $ionicSlideBoxDelegate.$getByHandle('mood-display').update();
-  });
-  
-  $scope.slideHasChanged = function(index) {
-    $scope.currentIndex = index;
-  };
+.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', 'Mood', 'locationService', 
+                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, Mood, locationService) {  
+	$scope.currentIndex = 0;
+	$scope.moodItem = {};
 
-  $scope.selectMood = function() {
-	  var selectedMood = $scope.moods[$scope.currentIndex];
-    //TODO Get GeoPoint latitude & longitude from map
-    MoodItem.create({ 
+	Mood.getAll().success(function(data) {
+		$scope.moods = data.results;
+		$ionicSlideBoxDelegate.$getByHandle('mood-display').update();
+	});
+
+	$scope.slideHasChanged = function(index) {
+		$scope.currentIndex = index;
+	};
+
+	$scope.selectMood = function() {
+		var selectedMood = $scope.moods[$scope.currentIndex];
+		var myLocation = locationService.getLocation();
+		if (!myLocation) { //if undefined set it to some point in the Atlantic Ocean
+			myLocation = new google.maps.LatLng(0,0);
+		}
+		MoodItem.create({ 
 			uuid: $uuid.getUUID(), 
 			mood: selectedMood.objectId, 
-			location: { __type: 'GeoPoint', latitude: 0, longitude: 0 }
+			location: { __type: 'GeoPoint', 
+				latitude: myLocation.lat(), 
+				longitude: myLocation.lng() 
+			}
 		});
-  };
-  
+	};
+
 }]);

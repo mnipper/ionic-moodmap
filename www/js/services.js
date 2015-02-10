@@ -35,6 +35,20 @@ angular.module('starter.services', [])
 	}
 }])
 
+.service('locationService', function() {
+	var myLocation;
+	var addLocation = function(newLocation) {
+		myLocation = newLocation;
+	}
+	var getLocation = function(){
+		return myLocation;
+	}
+	return {
+		addLocation: addLocation,
+		getLocation: getLocation
+	};
+})
+
 .value('PARSE_CREDENTIALS', {
     APP_ID: '4rrfwKEXMVFOGdbyNDVbzfcgh8GJkIaowFqHwwgT',
     REST_API_KEY:'IAH8wQeusMStVE7L3SeAMGoCI9RId1HNoDBSNIib'
