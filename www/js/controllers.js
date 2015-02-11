@@ -21,8 +21,12 @@ angular.module('starter.controllers', [])
 			$scope.myLocation = new google.maps.Marker({
 				position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
 				map: $scope.map,
+				draggable:true,
 				title: "My Current Location"
 			});  
+			google.maps.event.addListener($scope.myLocation, 'click', function (event) {
+			    locationService.addLocation(this.getPosition());
+			});
 			locationService.addLocation($scope.myLocation.position);
 			$ionicLoading.hide();
 		}, function (error) {
