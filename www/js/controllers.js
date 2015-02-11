@@ -4,17 +4,16 @@ angular.module('starter.controllers', [])
 	$scope.myLocation;
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
-		google.maps.event.addDomListener(window, 'load', $scope.centerOnMe());
+		$scope.centerOnMe();
 	};
 
-	$scope.centerOnMe = function () {
+	$scope.centerOnMe = function () {		
 		if (!$scope.map) {
 			return;
 		}
 
 		$scope.loading = $ionicLoading.show({
 			showBackdrop: false,
-			duration: 10000
 		});
 
 		navigator.geolocation.getCurrentPosition(function (pos) {
