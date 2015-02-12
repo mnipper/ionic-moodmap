@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
 				draggable:true,
 				title: "My Current Location"
 			});  
-			google.maps.event.addListener($scope.myLocation, 'click', function (event) {
+			google.maps.event.addListener($scope.myLocation, 'dragend', function (event) {
 			    locationService.addLocation(this.getPosition());
 			});
 			locationService.addLocation($scope.myLocation.position);
