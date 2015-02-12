@@ -61,15 +61,11 @@ angular.module('starter.controllers', [])
 	
 }])
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', 'Mood', 'locationService', 
-                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, Mood, locationService) {  
+.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', '$mood', 'locationService', 
+                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, $mood, locationService) {  
 	$scope.currentIndex = 0;
 	$scope.moodItem = {};
-
-	Mood.getAll().success(function(data) {
-		$scope.moods = data.results;
-		$ionicSlideBoxDelegate.$getByHandle('mood-display').update();
-	});
+	$scope.moods = $mood.getMoods();
 
 	$scope.slideHasChanged = function(index) {
 		$scope.currentIndex = index;

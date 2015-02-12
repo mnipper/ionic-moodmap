@@ -43,7 +43,8 @@ angular.module('ionic.utils', [])
 	
 	factory.fetchMoods = function() {
 		Mood.getAll().success(function(data) {
-			for (var i = 0; i < data.results.length; i++) {
+			$localstorage.set('moods', JSON.stringify(data.results));
+			for (var i = 0; i < data.results.length; i++) {	//TODO refactor this
 				var objectId = data.results[i].objectId;
 				$localstorage.set(objectId, JSON.stringify(data.results[i]));
 			}
@@ -53,6 +54,11 @@ angular.module('ionic.utils', [])
 	factory.getMood = function(moodId) {
 		var mood = $localstorage.get(moodId);
 		return JSON.parse(mood);
+	}
+	
+	factory.getMoods = function() {
+		var moods = $localstorage.get('moods');
+		return JSON.parse(moods);
 	}
 	
 	return factory;
