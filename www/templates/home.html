@@ -4,6 +4,10 @@
   <a href="#/mood" class="button">Add Mood</a>
 </ion-header-bar>
 
-<ion-content scroll="false">
+<div class="bar bar-subheader bar-loading" ng-class="clickedMood.color">
+  <h2 class="title white-text">{{ clickedMood.label }}</h2>
+</div>
+
+<ion-content scroll="false" ng-class="{'has-subheader': clickedMood}">
   <map on-create="mapCreated(map)"></map>
 </ion-content>
