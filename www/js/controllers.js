@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood', '$timeout',
-                        function($scope, $ionicLoading, locationService, MoodItem, $mood, $timeout) {
+.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood', '$timeout', '$window',
+                        function($scope, $ionicLoading, locationService, MoodItem, $mood, $timeout, $window) {
 	$scope.myLocation;
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
@@ -70,6 +70,9 @@ angular.module('starter.controllers', [])
 		}
 	};
 	
+	$scope.reload = function() {
+		$window.location.reload(true);
+	}
 }])
 
 .controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', '$mood', 'locationService', 

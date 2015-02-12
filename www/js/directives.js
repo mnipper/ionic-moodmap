@@ -9,8 +9,8 @@ angular.module('starter.directives', [])
     link: function ($scope, $element, $attr) {
       function initialize() {
         var mapOptions = {
-          center: new google.maps.LatLng(43.07493, -89.381388),
-          zoom: 16,
+          center: new google.maps.LatLng(36.000483, -78.938496),
+          zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map($element[0], mapOptions);
@@ -31,4 +31,15 @@ angular.module('starter.directives', [])
       }
     }
   }
+})
+
+.directive('xref', function($window, $state) {
+	return {
+		link: function(scope, element, attribute) {
+			element.on('click',function() {				
+				$state.go('index');
+				$window.location.reload(true);     
+			});
+		}
+	};
 });
