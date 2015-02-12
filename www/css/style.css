@@ -59,8 +59,7 @@ map {
   padding: 0;
   line-height: 24px;
 
-  /* transition 'sliding down' (check below)*/
-  -webkit-transition: 200ms all;
+  -webkit-transition: 500ms all;
 }
 
 /* make loading bar slide up/down */
