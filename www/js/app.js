@@ -1,12 +1,13 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'starter.services', 'ionic.utils'])
 
-.run(function($ionicPlatform, $uuid) {
+.run(function($ionicPlatform, $uuid, $mood) {
   $ionicPlatform.ready(function() {
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
 
     $uuid.getUUID();
+    $mood.fetchMoods();
   });
 }).config(function($stateProvider, $urlRouterProvider) {
   $stateProvider

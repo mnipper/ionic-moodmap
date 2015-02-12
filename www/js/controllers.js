@@ -1,20 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', 'Mood',
-                        function($scope, $ionicLoading, locationService, MoodItem, Mood) {
+.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood',
+                        function($scope, $ionicLoading, locationService, MoodItem, $mood) {
 	$scope.myLocation;
-	$scope.moods = {};
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
 		$scope.centerOnMe();
 	};
-	
-	Mood.getAll().success(function(data) {
-		for (var i = 0; i < data.results.length; i++) {
-			var item = data.results[i];
-			$scope.moods[item.objectId] = {'label': item.label, 'color': item.color };
-		}
-	});
 	
 	MoodItem.getAll().success(function(data) {
 		$scope.moodItems = data.results;
@@ -51,7 +43,7 @@ angular.module('starter.controllers', [])
 	$scope.drawMoods = function() {
 		for (var i = 0; i < $scope.moodItems.length; i++) {
 			var item = $scope.moodItems[i];  
-			var mood = $scope.moods[item.mood];
+			var mood = $mood.getMood(item.mood);
 			new google.maps.Marker({
 				  position: new google.maps.LatLng(item.location.latitude, item.location.longitude),
 				  map: $scope.map,
