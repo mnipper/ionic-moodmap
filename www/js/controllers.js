@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood',
-                        function($scope, $ionicLoading, locationService, MoodItem, $mood) {
+.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood', '$timeout',
+                        function($scope, $ionicLoading, locationService, MoodItem, $mood, $timeout) {
 	$scope.myLocation;
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
 		for (var i = 0; i < $scope.moodItems.length; i++) {
 			var item = $scope.moodItems[i];  
 			var mood = $mood.getMood(item.mood);
-			new google.maps.Marker({
+			var marker = new google.maps.Marker({
 				  position: new google.maps.LatLng(item.location.latitude, item.location.longitude),
 				  map: $scope.map,
 				  title: mood.label,
@@ -56,6 +56,17 @@ angular.module('starter.controllers', [])
 				      scale: 3
 				    }
 			  });
+
+      google.maps.event.addListener(marker, 'click', (function(_mood) {
+        return function() {
+          $scope.$apply(function() {
+            $scope.clickedMood = _mood;
+            $timeout(function() {
+              $scope.clickedMood = null;
+            }, 3000);
+          });
+        }
+      })(mood));
 		}
 	};
 	
