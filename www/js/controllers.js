@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
 				      fillColor: mood.color,
 				      fillOpacity: 1.0,
 				      strokeColor: mood.color,
-				      scale: 7
+				      scale: 3
 				    }
 			  });
 		}
