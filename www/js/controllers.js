@@ -7,8 +7,8 @@ angular.module('starter.controllers', [])
 		$scope.map = map;
 		$scope.centerOnMe();
 	};
-	
-	MoodItem.getAll().success(function(data) {
+
+	MoodItem.getHoursAgo(24).success(function(data) {
 		$scope.moodItems = data.results;
 		$scope.drawMoods();
 	});
