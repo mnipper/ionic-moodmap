@@ -31,15 +31,4 @@ angular.module('starter.directives', [])
       }
     }
   }
-})
-
-.directive('xref', function($window, $state) {
-	return {
-		link: function(scope, element, attribute) {
-			element.on('click',function() {				
-				$state.go('index');
-				$window.location.reload(true);     
-			});
-		}
-	};
 });

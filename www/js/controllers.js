@@ -75,8 +75,8 @@ angular.module('starter.controllers', [])
 	}
 }])
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', '$mood', 'locationService', 
-                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, $mood, locationService) {  
+.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', '$mood', 'locationService', '$state', '$window',
+                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, $mood, locationService, $state, $window) {  
 	$scope.currentIndex = 0;
 	$scope.moodItem = {};
 	$scope.moods = $mood.getMoods();
@@ -98,6 +98,9 @@ angular.module('starter.controllers', [])
 				latitude: myLocation.lat(), 
 				longitude: myLocation.lng() 
 			}
+		}).success(function(data) {
+			$state.go('index');
+			$window.location.reload(true);
 		});
 	};
 
