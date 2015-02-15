@@ -37,8 +37,9 @@ angular.module('starter.controllers', [])
 			locationService.addLocation($scope.myLocation.position);
 			$ionicLoading.hide();
 		}, function (error) {
+			$ionicLoading.hide();
 			alert('Unable to get location: ' + error.message);
-		});
+		}, {timeout: 20000});
 	};
 	
 	$scope.drawMoods = function() {
