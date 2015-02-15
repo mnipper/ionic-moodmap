@@ -1,13 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood', '$timeout', '$window',
-                        function($scope, $ionicLoading, locationService, MoodItem, $mood, $timeout, $window) {
+.controller('MapCtrl', ['$scope', '$ionicLoading', 'locationService', 'MoodItem', '$mood', '$timeout', '$window', '$rootScope',
+                        function($scope, $ionicLoading, locationService, MoodItem, $mood, $timeout, $window, $rootScope) {
+	
 	$scope.myLocation;
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
 		$scope.centerOnMe();
 	};
-
+	
 	MoodItem.getHoursAgo(24).success(function(data) {
 		$scope.moodItems = data.results;
 		$scope.drawMoods();
@@ -73,10 +74,22 @@ angular.module('starter.controllers', [])
 	$scope.reload = function() {
 		$window.location.reload(true);
 	}
+	
+	$rootScope.$on('moodItem:listChanged', function() {
+	    $scope.updateMoodItems();
+	})
+	
+	$scope.updateMoodItems = function() {
+		MoodItem.getHoursAgo(24).success(function(data) {
+			$scope.moodItems = data.results;
+			$scope.drawMoods();
+		});
+	}
+	
 }])
 
-.controller('MoodSliderCtrl', ['$scope', '$uuid', '$ionicSlideBoxDelegate', 'MoodItem', '$mood', 'locationService', '$state', '$window',
-                               function($scope, $uuid, $ionicSlideBoxDelegate, MoodItem, $mood, locationService, $state, $window) {  
+.controller('MoodSliderCtrl', ['$scope', '$uuid', 'MoodItem', '$mood', 'locationService', '$state',
+                               function($scope, $uuid, MoodItem, $mood, locationService, $state) {  
 	$scope.currentIndex = 0;
 	$scope.moodItem = {};
 	$scope.moods = $mood.getMoods();
@@ -99,8 +112,8 @@ angular.module('starter.controllers', [])
 				longitude: myLocation.lng() 
 			}
 		}).success(function(data) {
-			$state.go('index');
-			$window.location.reload(true);
+			$scope.$emit('moodItem:listChanged');
+			$state.go('index', {}, {reload: true});
 		});
 	};
 
