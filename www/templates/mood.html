@@ -7,7 +7,7 @@
   <ion-slide-box delegate-handle="mood-display" on-slide-changed="slideHasChanged($index)">
     <ion-slide ng-repeat="mood in moods">
       <div class="box" ng-class="mood.color">
-          <img class="mood-image" ng-src="/img/{{mood.label}}.png">
+          <img class="mood-image" ng-src="img/{{mood.label}}.png">
           <h1 class="mood-text">{{ mood.label }}</h1>
       </div>
     </ion-slide>
