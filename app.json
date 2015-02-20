@@ -1,0 +1,6 @@
+{
+    "name": "moodMap",
+    "description": "A geolocation mood map",
+    "repository": "https://github.com/mnipper/ionic-moodmap.git",
+    "keywords": ["mood", "map", "moodmap"]
+}
