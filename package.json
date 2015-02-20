@@ -1,7 +1,10 @@
 {
   "name": "MoodMap",
   "version": "1.0.0",
-  "description": "myApp: An Ionic project",
+  "description": "myApp: An Ionic project", 
+  "engines": {
+    "node": "0.10.x"
+  }, 
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
