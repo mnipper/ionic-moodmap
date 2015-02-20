@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 		}, function (error) {
 			$ionicLoading.hide();
 			alert('Unable to get location: ' + error.message);
-		}, {timeout: 20000});
+		}, {timeout: 10000});
 	};
 	
 	$scope.drawMoods = function() {
@@ -118,4 +118,27 @@ angular.module('starter.controllers', [])
 		});
 	};
 
+}])
+
+.controller('HistoryCtrl', ['$scope', '$uuid', '$mood', 'MoodItem', function($scope, $uuid, $mood, MoodItem) {
+	$scope.moods = {};
+	$scope.times = {}
+	MoodItem.getPastMoods($uuid.getUUID()).success(function(data) {
+		$scope.pastMoods = data.results;
+		for (var k = 0; k < $scope.pastMoods.length; k++) {
+			$scope.moods[$scope.pastMoods[k].mood] = $mood.getMood($scope.pastMoods[k].mood);
+			$scope.times[$scope.pastMoods[k].objectId] = (new Date($scope.pastMoods[k].createdAt)).toString();
+		}
+	});
+	
+	$scope.mapCreated = function(map, location, moodId) {
+		$scope.map = map;
+		$scope.map.setCenter(new google.maps.LatLng(location.latitude, location.longitude));
+		new google.maps.Marker({
+			position: new google.maps.LatLng(location.latitude, location.longitude),
+			map: $scope.map,
+			title: $mood.getMood(moodId).label
+		});
+	};
+	
 }]);

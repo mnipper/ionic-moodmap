@@ -29,6 +29,21 @@ map {
     margin-right: auto;
 }
 
+.card-map {
+    height: 300px;    
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.card-title {
+    text-transform:uppercase;
+    text-align: center;
+}
+
+.card-footer {
+    text-align: center;
+}
+
 .blue {
   background-color: blue;
 }

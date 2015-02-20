@@ -21,6 +21,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
     url: '/mood',
     templateUrl: 'templates/mood.html',
     controller: 'MoodSliderCtrl'
+  })
+  
+  .state('history', {
+	  url:'/history',
+	  templateUrl: 'templates/history.html',
+	  controller: 'HistoryCtrl'
   });
 
   $urlRouterProvider.otherwise('/');
