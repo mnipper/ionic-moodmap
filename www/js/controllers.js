@@ -120,14 +120,14 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('HistoryCtrl', ['$scope', '$uuid', '$mood', 'MoodItem', function($scope, $uuid, $mood, MoodItem) {
+.controller('HistoryCtrl', ['$scope', '$window', '$uuid', '$mood', 'MoodItem', function($scope, $window, $uuid, $mood, MoodItem) {
 	$scope.moods = {};
 	$scope.times = {}
 	MoodItem.getPastMoods($uuid.getUUID()).success(function(data) {
 		$scope.pastMoods = data.results;
 		for (var k = 0; k < $scope.pastMoods.length; k++) {
 			$scope.moods[$scope.pastMoods[k].mood] = $mood.getMood($scope.pastMoods[k].mood);
-			$scope.times[$scope.pastMoods[k].objectId] = (new Date($scope.pastMoods[k].createdAt)).toString();
+			$scope.times[$scope.pastMoods[k].objectId] = new Date($scope.pastMoods[k].createdAt);
 		}
 	});
 	
@@ -140,5 +140,9 @@ angular.module('starter.controllers', [])
 			title: $mood.getMood(moodId).label
 		});
 	};
+	
+	$scope.reload = function() {
+		$window.location.reload(true);
+	}
 	
 }]);

@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'starter.services', 'ionic.utils'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'starter.services', 'starter.filters', 'ionic.utils'])
 
 .run(function($ionicPlatform, $uuid, $mood) {
   $ionicPlatform.ready(function() {

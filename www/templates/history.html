@@ -1,6 +1,7 @@
 <ion-header-bar class="bar-positive">
     <a href="#/index" class="button icon-left ion-chevron-left"></a>
     <h1 class="title">Past Moods</h1>
+    <button class="button icon ion-refresh" ng-click="reload()"></button>
 </ion-header-bar>
 
 <ion-content>
@@ -13,7 +14,7 @@
                 <map on-create="mapCreated(map, pastMood.location, pastMood.mood)"></map>
             </div>
             <div class="item item-divider card-footer" style="background-color: {{moods[pastMood.mood].color}}">
-                {{times[pastMood.objectId]}}
+                {{times[pastMood.objectId] | fromNow}}
             </div>
         </div>
     </div>
